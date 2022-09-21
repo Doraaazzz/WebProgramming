@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/pagestyle.css">
+    <title>Web 1</title>
+    <link rel="icon" href="img/logo.png" type="image">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="inf_block_1">Voronina Darya Sergeevna
+            <div class="inf_block_2">
+                group: P32311 <br> numder: 3004
+              </div>
+        </div>
+        <div><img src="img/logo.png"  class="logo" alt="y(.)"></div>
+    </header>
+    <div class="main_content">
+        <div class="graph">
+            <img src="img/graph.png">
+        </div>
+
+        <div class="data">  
+            <div class="reset"><button class="reset_button" type="submit">Reset</button></div>
+            <form class="form" id="form_for_sending" action="php/server.php" method="get">
+                <p class="title_of_form"> Enter values to calculate</p>
+                <p class="blocks_of_data">Choose x value: 
+                    <select size="0" required id="select">
+                    <option disabled>Choose x value</option>
+                    <option name="coordinate_x" value="-2" class="x">-2</option>
+                    <option name="coordinate_x" value="-1.5" class="x">-1.5</option>
+                    <option name="coordinate_x" value="-1" class="x">-1</option>
+                    <option name="coordinate_x" value="-0.5" class="x">-0.5</option>
+                    <option name="coordinate_x" value="0" class="x">0</option>
+                    <option name="coordinate_x" value="0.5" class="x">0.5</option>
+                    <option name="coordinate_x" value="1" class="x">1</option>
+                    <option name="coordinate_x" value="1.5" class="x">1.5</option>
+                    <option name="coordinate_x" value="2" class="x">2</option>
+                    </select>
+                    
+                </p>
+                <p class="blocks_of_data">Input y value : <input type="text" name="coordinate_y" id="y_value" class="y" placeholder="from -3 to 5" maxlength="10"></p>
+                <p class="r_value blocks_of_data"> <span name="R">Choose r value:</span>
+                    <button class="button_r" name="coordinate_r" value="1" type="button" onclick="R('1')">1</button>
+                    <button class="button_r" name="coordinate_r" value="1.5" type="button" onclick="R('1.5')">1.5</button>
+                    <button class="button_r" name="coordinate_r" value="2" type="button" onclick="R('2')">2</button>
+                    <button class="button_r" name="coordinate_r" value="2.5" type="button" onclick="R('2.5')">2.5</button>
+                    <button class="button_r" name="coordinate_r" value="3" type="button" onclick="R('3')">3</button>
+                
+                </p>
+                <div class="show"><div>R: </div><div id="show_r" class="show_r"></div></div>
+                <button class="submitButton" type="submit" >Send</button>
+            </form>
+        </div>
+    
+        <div class="results">
+            <table id="result_table" width="100%" >
+                <thead>
+                    <th >X</th>
+                    <th >Y</th>
+                    <th >R</th>
+                    <th >Hitting the area</th>
+                    <th >Current time</th>
+                    <th >Execution time, sec</th>
+                </thead>
+                <tbody class="content">
+
+                </tbody>
+            </table>
+        </div>
+        <footer class="footer"> ITMO, 2022
+
+        </footer>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="js/client.js" ></script>
+</body>
+</html>
