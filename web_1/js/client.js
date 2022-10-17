@@ -4,7 +4,7 @@ var validatedButton = document.querySelector('.submitButton');
 var x_coordinate=document.querySelector('#select');
 var y_coordinate=document.querySelector('.y');
 var r_coordinate=document.querySelector('.show_r');
-var r_block=document.querySelector('r_value blocks_of_data');
+
 
 
 function isNumber(s){
@@ -14,10 +14,12 @@ function isNumber(s){
 
 
 function checkSelectBox(select){
-    if (select.value) {
+  console.log(typeof(select.value));
+    x_values = ['-2', '-1.5', '-1', '-0.5', '0', '0.5', '1', '1.5', '2'];
+    if (select.value && x_values.includes(select.value)) {
     return true;
     }
-    alert("Выберете значение X")
+    alert("Choose correct X value");
     return false;
     
 }
@@ -27,14 +29,14 @@ function validateField(coordinate,min,max){
   if(coordinate.value){
       coordinate.value = coordinate.value.replace(',','.');
       if(coordinate.value<min || coordinate.value>max || !isNumber(coordinate.value)){
-         alert("Укажите значении координаты Y числом в интервале [-5;3]")           
+         alert("Input Y value in [-5;3]")           
           return false;
       }
       else{            
           return true;              
       }
   }
-  alert("Поле Y не может быть пустым")
+  alert("Fill the Y field correct")
   return false; 
 }
 
@@ -45,10 +47,11 @@ function R(arg) {
 }
 
 function validR(r) {
-    if (r.value){
+    let r_values = ['1', '1.5', '2', '2.5' ,'3'];
+    if (r.value && r_values.includes(r.value)){
         return true;
     }
-    alert("Выберете значение R")
+    alert("Choose correct R value")
     return false;
 }
 
@@ -76,8 +79,8 @@ $(document).ready(function(){
             method: "GET",
             data: {
             "coordinate_x": x_coordinate.value,
-            "coordinate_y":y_coordinate.value,
-            "coordinate_r":r_coordinate.value,
+            "coordinate_y": y_coordinate.value,
+            "coordinate_r": r_coordinate.value,
             "timezone": new Date().getTimezoneOffset(),
             },
             dataType: 'html',
