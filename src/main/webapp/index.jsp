@@ -107,6 +107,7 @@
             ITMO, 2022
         </footer>
     </div>
-    <script src="js/script.js"></script>
+    <script src="js/graph.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
