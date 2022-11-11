@@ -212,3 +212,8 @@ th,td{
     border-radius: 5px;
 
 }
+
+#jxgbox {
+    width: 300px;
+    height: 300px;
+}

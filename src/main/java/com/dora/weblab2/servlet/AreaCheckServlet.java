@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-@WebServlet (name = "AreaCheckServlet", value = "/checkArea")
+@WebServlet(name = "AreaCheckServlet", value = "/checkArea")
 public class AreaCheckServlet extends HttpServlet {
 
     private final Area area = new Area();
@@ -37,6 +37,7 @@ public class AreaCheckServlet extends HttpServlet {
         double y = getDouble(req, "coordinate_y");
         double r = getDouble(req, "coordinate_r");
 
+
         boolean hit = area.contains(x, y, r);
         LocalDateTime after = LocalDateTime.now();
         long executionTime = ChronoUnit.MILLIS.between(before, after);
@@ -44,6 +45,10 @@ public class AreaCheckServlet extends HttpServlet {
             manager.insertPoint(x, y, r, hit, after, executionTime);
         }
 
-        resp.sendRedirect(req.getContextPath() + "/index.jsp");
+        if (req.getParameter("as_json") == null) {
+            resp.sendRedirect(req.getContextPath() + "/index.jsp");
+        } else {
+
+        }
     }
 }
