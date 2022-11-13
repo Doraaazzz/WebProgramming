@@ -30,23 +30,25 @@
     <div class="main_content">
         <div class="graph" id="graph">
             <div id="jxgbox" class="jxgbox"></div>
+            <c:forEach var="point" items="${points.getPoints()}" >
+                <point data-x="${point.x}" data-y="${point.y}" data-r="${point.r}" data-hit="${point.hit}" />
+            </c:forEach>
+            <!--
+                <point data-x="..." data-y="..." data-r="..." data-hit="..." />
+            -->
         </div>
         <div class="data">
             <div class="reset">
-                <button class="reset_button" type="reset" value="RESET">Reset</button>
+                <button class="reset_button" type="reset">Reset</button>
             </div>
             <form class="form" id="form_for_sending" action="ControllerServlet" method="get" >
-                <p class="title_of_form">Enter values to calculate</p>
-                <div class="Error_text">
-                    <span class="tip" id="X_error"></span>
-                    <span class="tip" id="Y_error"></span>
-                    <span class="tip" id="R_error"></span>
-                </div>
-                <p class="blocks_of_data">
+                <p class="title_of_form">Point details</p>
+                <div class="ducks"></div>
+                <p id="x-container" class="blocks_of_data">
                     Input x value:
-                    <input type="text" name="coordinate_x" id="x_value" class="x" placeholder="from -5 to 5" maxlength="10">
+                    <input type="text" name="coordinate_x" id="x_value" class="x" placeholder="from -5 to 5" maxlength="10" required>
                 </p>
-                <p class="y_value blocks_of_data"> Choose y value:
+                <p id="y-container" class="y_value blocks_of_data">Check y values:
                     <input type="checkbox" name="coordinate_y" value="-3">
                     <label>-3</label>
                     <input type="checkbox" name="coordinate_y" value="-2">
@@ -66,9 +68,9 @@
                     <input type="checkbox" name="coordinate_y" value="5">
                     <label>5</label>
                 </p>
-                <p class="blocks_of_data">Choose r value:
-                    <select size="0" required id="select" name="coordinate_r">
-                        <option disabled>Choose r value</option>
+                <p id="r-container" class="blocks_of_data">Select r value:
+                    <select size="0" id="select" name="coordinate_r">
+                        <option value="nothing" disabled selected required>Nothing selected</option>
                         <option value="1" class="r">1</option>
                         <option value="1.5" class="r">1.5</option>
                         <option value="2" class="r">2</option>
@@ -76,7 +78,7 @@
                         <option value="3" class="r">3</option>
                     </select>
                 </p>
-                <button class="submitButton" type="submit" value="SUBMIT" >Send</button>
+                <button class="submitButton" type="submit">Send</button>
             </form>
         </div>
         <div class="results" >
@@ -85,8 +87,8 @@
                 <th>X</th>
                 <th>Y</th>
                 <th>R</th>
-                <th>Hitting the area</th>
-                <th>Current time</th>
+                <th>Result</th>
+                <th>When executed</th>
                 <th>Execution time, ms</th>
                 </thead>
                 <tbody class="content">

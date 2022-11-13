@@ -22,24 +22,24 @@ public class Area implements Hittable {
             public boolean contains(double x, double y, double r) {
                 if (x > 0 || y < 0) return false;
 
-                return y <= x + (r / 2);
+                return x * x + y * y <= (r / 2) * (r / 2);
             }
         };
         Hittable subarea3 = new Hittable() {
             @Override
             public boolean contains(double x, double y, double r) {
-                if (x > 0 || y >= 0) return false;
+                if (x > 0 || y > 0) return false;
 
-                return x * x + y + y <= r * r;
+                return y >= -x / 2 - (r / 2);
             }
         };
         Hittable subarea4 = new Hittable() {
             @Override
             public boolean contains(double x, double y, double r) {
-                if (x <= 0 || y >= 0) return false;
+                if (x < 0 || y > 0) return false;
 
-                boolean yAboveMinusR = y >= r;
-                boolean xBelowHalfR = y <= (r / 2);
+                boolean yAboveMinusR = y >= -r;
+                boolean xBelowHalfR = x <= (r / 2);
 
                 return yAboveMinusR && xBelowHalfR;
             }

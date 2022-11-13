@@ -1,3 +1,4 @@
+
 *{
     font-family: 'Courier New', Courier, monospaces;
 }
@@ -21,6 +22,7 @@
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 10000;
 }
 
 .inf_block_1 {
@@ -73,7 +75,7 @@
 
 }
 
-.Error_text {
+.ducks {
     background-image: url("../img/y.jpg");
     background-size: contain;
     background-repeat: repeat-x;
@@ -83,6 +85,44 @@
     flex-direction: column;
     color: red;
     font-size: 20px;
+}
+
+/* .error {
+
+} */
+
+@keyframes error {
+    0%, 100% {
+        right: -5px;
+    }
+    50% {
+        right: -30px;
+    }
+}
+
+.mad {
+    background-image: url("../img/duckwithknife.jpg");
+}
+
+.bad {
+    position: relative;
+}
+
+.bad::after {
+    position: absolute;
+    top: calc(50% - 10px);
+    transform: translateX(100%);
+    display: inline-block;
+    content: attr(data-message);
+    font-size: small;
+    color: red;
+    animation: 700ms linear error;
+    animation-iteration-count: infinite;
+    background-color: white;
+    border: 1px solid rgba(250, 50, 50, .4);
+    height: 10px;
+    padding: 5px;
+    border-radius: 10px;
 }
 
 input::placeholder{
@@ -184,9 +224,9 @@ svg {
     fill: none;
 }
 
-.blocks_of_data{
-    margin-top: 20px;
-    margin-bottom: 20px;
+.blocks_of_data {
+    display: inline-block;
+    margin: 10px 0;
 }
 
 
@@ -216,4 +256,8 @@ th,td{
 #jxgbox {
     width: 400px;
     height: 400px;
+}
+
+point {
+    display: none;
 }

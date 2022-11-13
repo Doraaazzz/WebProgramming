@@ -20,6 +20,10 @@ public class PointSessionManager implements Closeable {
         pointsTable.getPoints().add(new Point(x, y, r, hit, date, executionTime));
     }
 
+    public void clear() {
+        pointsTable.getPoints().clear();
+    }
+
     public PointSessionManager(HttpServletRequest request) {
         session = request.getSession();
         Object obj = session.getAttribute("points");

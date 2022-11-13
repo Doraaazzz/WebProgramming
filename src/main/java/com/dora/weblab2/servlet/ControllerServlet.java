@@ -5,6 +5,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.dora.weblab2.session.PointSessionManager;
+
 import java.io.IOException;
 import java.util.stream.Stream;
 
@@ -22,7 +25,9 @@ public class ControllerServlet extends HttpServlet{
                     .getRequestDispatcher("/checkArea")
                     .forward(req, resp);
         } else if (hasParameters(req, "clear")){
-            // TODO очистка данных, отправка
+            try(PointSessionManager manager = new PointSessionManager(req)) {
+                manager.clear();
+            }
         } else {
             throw new HttpException(HttpServletResponse.SC_BAD_REQUEST, "Bad request parameters");
         }
