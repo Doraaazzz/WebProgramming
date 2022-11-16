@@ -58,11 +58,15 @@ function validate(e) {
 }
 
 async function checkArea(coordinate_x, coordinate_y, coordinate_r) {
-    const params = new URLSearchParams({coordinate_x, coordinate_y, coordinate_r, asJson: true});
-    const request = await fetch(`checkArea?${params}`);
+    const params = new URLSearchParams({coordinate_x, coordinate_y, coordinate_r});
+    const request = await fetch(`checkArea?${params}`, {
+        headers: {
+            "Accept": "application/json"
+        }
+    });
 
     if (request.ok) {
-        return request.json();
+        return (await request.json())[0];
     } else {
         alert(":(");
         return null;
@@ -117,7 +121,7 @@ area.board.on("down", async (e) => {
         const {x, y, r, hit, date, executionTime} = result;
         const rowValues = [x, y, r, hit, date, executionTime];
 
-        const table = document.querySelector("#result_table");
+        const table = document.querySelector("#result_table tbody");
         const newRow = table.insertRow(-1);
         rowValues.forEach(v => {
             const cell = newRow.insertCell(-1);

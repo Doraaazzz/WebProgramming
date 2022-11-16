@@ -1,5 +1,6 @@
 package com.dora.weblab2.servlet;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,22 +15,16 @@ import java.util.stream.Stream;
 @WebServlet(name = "ControllerServlet", value = "/ControllerServlet")
 public class ControllerServlet extends HttpServlet{
 
-    private boolean hasParameters(HttpServletRequest req, String ...params){
-        return Stream.of(params)
-                .allMatch(p->req.getParameter(p) != null );
-    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if ( hasParameters(req, "coordinate_x", "coordinate_y", "coordinate_r")){
-            getServletContext()
-                    .getRequestDispatcher("/checkArea")
-                    .forward(req, resp);
-        } else if (hasParameters(req, "clear")){
+        if (req.getParameter("clear") != null){
             try(PointSessionManager manager = new PointSessionManager(req)) {
                 manager.clear();
             }
         } else {
-            throw new HttpException(HttpServletResponse.SC_BAD_REQUEST, "Bad request parameters");
+            RequestDispatcher d = getServletContext()
+                    .getRequestDispatcher("/checkArea");
+            d.forward(req, resp);
         }
     }
 
