@@ -70,11 +70,22 @@ public class FormBean implements Serializable {
             LocalDateTime startDate = LocalDateTime.now();
             Result result = area.check(x, y, r, startDate);
 
+            if (result == null) {
+                ajax.addCallbackParam("error", true);
+                ajax.addCallbackParam("reason", "VALIDATION_FAILED");
+                return;
+            }
+
+            ajax.addCallbackParam("error", false);
             ajax.addCallbackParam("hit", result.isHit());
             ajax.addCallbackParam("date", result.getDateString());
             ajax.addCallbackParam("executionTime", result.getExecutionTime());
-        } catch (NumberFormatException | NullPointerException e) {
+        } catch (NumberFormatException e) {
             ajax.addCallbackParam("error", true);
+            ajax.addCallbackParam("reason", "BAD_NUMBER_FORMAT");
+        } catch (NullPointerException e) {
+            ajax.addCallbackParam("error", true);
+            ajax.addCallbackParam("reason", "NO_VALUE");
         }
     }
 }

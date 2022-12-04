@@ -183,32 +183,46 @@ area.board.on("down", async (e) => {
         {name: "r", value: r}
     ]);
     window.resolveCheckAreaResult = (xhr, status, args) => {
-        console.log(args);
+        console.log(status);
         if (args !== null) {
-            if (args.hasOwnProperty("error")) {
-                alert("Server error");
-                return;
+            if (args.error) {
+                let message;
+                switch (args.reason) {
+                    case "VALIDATION_FAILED":
+                        message = "Одна или несколько координат не подпадают под условие валидации";
+                        break;
+                    case "BAD_NUMBER_FORMAT":
+                        message = "Одна ли несколько координат не являются числами";
+                        break;
+                    case "NO_VALUE":
+                        message = "Одна или несколько координат не заданы";
+                        break;
+                    default:
+                        message = "Неизвестная ошибка сервера";
+                }
+                alert(message);
+            } else {
+                removeEmptyRows();
+                const {hit, date, executionTime} = args;
+                const rowValues = [
+                    x.toFixed(2).replace(".", ","),
+                    y.toFixed(2).replace(".", ","),
+                    r.toFixed(2).replace(".", ","),
+                    hit ? "Да" : "Нет",
+                    date,
+                    executionTime + " мс"
+                ];
+
+                const table = document.querySelector("#results-table tbody");
+                const newRow = table.insertRow(-1);
+                rowValues.forEach(v => {
+                    const cell = newRow.insertCell(-1);
+                    const text = document.createTextNode(v);
+                    cell.appendChild(text);
+                });
+
+                area.put(x, y, r, hit);
             }
-            removeEmptyRows();
-            const {hit, date, executionTime} = args;
-            const rowValues = [
-                x.toFixed(2).replace(".", ","),
-                y.toFixed(2).replace(".", ","),
-                r.toFixed(2).replace(".", ","),
-                hit ? "Да" : "Нет",
-                date,
-                executionTime + " мс"
-            ];
-
-            const table = document.querySelector("#results-table tbody");
-            const newRow = table.insertRow(-1);
-            rowValues.forEach(v => {
-                const cell = newRow.insertCell(-1);
-                const text = document.createTextNode(v);
-                cell.appendChild(text);
-            });
-
-            area.put(x, y, r, hit);
         }
     }
 });

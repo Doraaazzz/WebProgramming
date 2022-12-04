@@ -6,6 +6,7 @@ import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.RollbackException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,12 +28,18 @@ public class ResultsManager implements Serializable {
         return results;
     }
 
-    public void insert(Result result) {
-        this.results.add(result);
-
+    public boolean insert(Result result) {
         EntityManager entityManager = resultEntityManagers.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(result);
-        entityManager.getTransaction().commit();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(result);
+            entityManager.getTransaction().commit();
+
+            this.results.add(result);
+            return true;
+        } catch (RollbackException e) {
+            entityManager.getTransaction().rollback();
+            return false;
+        }
     }
 }

@@ -1,7 +1,11 @@
 package com.dora;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Range;
 
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -9,32 +13,43 @@ import java.time.format.DateTimeFormatter;
 @Table(name = "result")
 public class Result {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "result_id_generator")
-    @SequenceGenerator(name = "result", sequenceName = "RESULT_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "result_id")
+    @SequenceGenerator(name = "result_id", sequenceName = "result_id", allocationSize = 1)
     @Column(name = "id", updatable = false, nullable = false)
     private long id;
 
-    private double x;
-    private double y;
-    private double r;
+    @Range(min = -4, max = 4)
+    @NotNull
+    private BigDecimal x = new BigDecimal(0);
 
+    @Range(min = -5, max = 5)
+    @NotNull
+    private BigDecimal y = new BigDecimal(0);
+
+    @Range(min = 2, max = 5)
+    @NotNull
+    private BigDecimal r = new BigDecimal(2);
+
+    @NotNull
     private boolean hit;
 
+    @NotNull
     private LocalDateTime date;
+    @NotNull
     private long executionTime;
 
     public long getId() { return id; }
 
     public double getX() {
-        return x;
+        return x.doubleValue();
     }
 
     public double getY() {
-        return y;
+        return y.doubleValue();
     }
 
     public double getR() {
-        return r;
+        return r.doubleValue();
     }
 
     public boolean isHit() {
@@ -53,9 +68,9 @@ public class Result {
     public Result() {}
 
     public Result(double x, double y, double r, boolean hit, LocalDateTime date, long executionTime) {
-        this.x = x;
-        this.y = y;
-        this.r = r;
+        this.x = new BigDecimal(x);
+        this.y = new BigDecimal(y);
+        this.r = new BigDecimal(r);
         this.hit = hit;
         this.date = date;
         this.executionTime = executionTime;

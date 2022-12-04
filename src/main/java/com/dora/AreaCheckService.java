@@ -35,8 +35,9 @@ public class AreaCheckService implements Serializable {
         long executionTime = calculateExecutionTime(startDate, endDate);
         Result result = new Result(x, y, r, hit, startDate, executionTime);
 
-        results.insert(result);
+        if (results.insert(result))
+            return result;
 
-        return result;
+        return null;
     }
 }
