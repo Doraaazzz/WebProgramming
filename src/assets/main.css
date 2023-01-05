@@ -1,0 +1,76 @@
+:root {
+    --button-color: #0384ff;
+    --button-hover-color: #0168ce;
+    --button-disabled-color: #3ca1ff;
+}
+
+body {
+    font-family: sans-serif;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    margin: 20px;
+}
+
+@media (min-width: 842px) {
+    main {
+        width: 350px;
+        margin: auto;
+    }
+}
+
+button, .button {
+    font: unset;
+    border: unset;
+    display: inline-block;
+    background-color: var(--button-color);
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    text-decoration: none;
+    transition: background-color 150ms linear;
+}
+
+button:hover, .button:hover {
+    background-color: var(--button-hover-color);
+}
+
+button:disabled, .button:disabled, button:hover:disabled, .button:hover:disabled {
+    background-color: var(--button-disabled-color);
+}
+
+.error {
+    color: red;
+}
+
+input, select {
+    padding: 5px;
+    display: block;
+    flex: 1 1 auto;
+}
+
+label {
+    margin-right: 5px;
+    flex: 0 1 auto;
+}
+
+.input-group {
+    margin: 15px auto;
+    display: flex;
+    align-items: center;
+}
+
+polygon {
+    outline: none;
+}
+
+.error {
+    list-style: none;
+    margin: 5px 0;
+    padding: 0;
+    color: red;
+    font-size: .8   5em;
+}
